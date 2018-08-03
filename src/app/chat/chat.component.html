@@ -1,0 +1,35 @@
+<div class="chat-container">
+  <div class="align-bottom-right" [style.height.px]="chatWindowHeight" >
+    <div class="row align-bottom" [style.position]="setChatWindowPosition">
+      <div class="col-xs-12 col-sm-12">
+        <div id="#style-1" class="list-group all-chat-holder" #allChatContainer>
+          <div class="list-group-item" *ngFor="let chat of chatArray">
+            <span class="comment-time" >{{chat.time}}</span>
+            <span class="reply-comment" (click)="replyToComment(chat)">reply</span>
+            <span class="edit-comment" (click)="editComment(chat)">edit</span>
+            <span class="close-comment" (click)="removeComment(chat)">x</span>
+            <span class="name label">{{chat.name}}</span>
+            <div class="alert alert-info message">{{chat.message}}</div>
+            <div *ngIf="chat.reply && chat.reply.length>0">
+                <div class="list-group-item" *ngFor="let reply of chat.reply">
+                    <span class="comment-time" >{{chat.time}}</span>
+                    <span class="name label">{{reply.name}}</span>
+                    <div class="alert alert-info message">{{reply.message}}</div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="list-group chat send-and-edit-holder">
+          <div class="list-group-item">
+            <span class="name label">{{messageTitle}}</span>
+            <textarea class="enter-message alert alert-success" #commentMessage></textarea>
+            <span class="label">Your Name</span>
+            <input type="text" class="your-name alert alert-warning" #nameOfCommenter>
+            <button class="btn btn-primary send-btn" (click)="publishComment()">send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btn btn-close" (click)="chatOpenClose($event)">{{closeButtonText}}</div>
+</div>
